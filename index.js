@@ -1,5 +1,5 @@
 const fs = require("fs");
-const generateMarkdown = require("./src/page-template");
+const generateHTML = require("./src/page-template");
 const inquirer = require("inquirer");
 
 const questionsManager = inquirer.prompt([
@@ -29,9 +29,17 @@ const questionsManager = inquirer.prompt([
     message:"Would you like to add an engineer's data, intern's data, or finish building the roster?",
     choices: ["Add an Engineer", "Add an Intern", "Finish Roster"],
   }
-]);
+])
+.then((result) => {
+    if(result.managerRole === "Add an Intern"){
+        questionsIntern()
+    } else if(result.managerRole === "Add an Engineer") {
+        questionsEngineer();
+    } else createHTML();
+});
+questionsManager();
 
-const questionsEngineer = inquirer.prompt([
+var questionsEngineer = function() { inquirer.prompt([
     {
         type:"input",
         name:"engineerName",
@@ -59,9 +67,18 @@ const questionsEngineer = inquirer.prompt([
         message:"Would you like to add another engineer's data, an intern's data, or finish building the roster?",
         choices:["Add an Engineer", "Add an Intern", "Finish Roster"],
     }
-]);
+])
+.then((result) => {
+    if(result.engineerRole === "Add an Intern"){
+        questionsIntern()
+    } else if(result.engineerRole === "Add an Engineer") {
+        questionsEngineer();
+    } else createHTML();
+})
+};
 
-const questionsIntern = inquirer.prompt ([
+
+var questionsIntern = function() { inquirer.prompt ([
     {
         type:"input",
         name:"internName",
@@ -89,9 +106,18 @@ const questionsIntern = inquirer.prompt ([
         message:"Would you like to add another intern's data, an engineer's data, or finish building the roster?",
         choices:["Add an Intern", "Add an Engineer", "Finish Roster"],
     }
-]);
-
-function init() {
+])
+.then((result) => {
+    if(result.internRole === "Add an Intern"){
+        questionsIntern()
+    } else if(result.internRole === "Add an Engineer") {
+        questionsEngineer();
+    } else createHTML();
+});
 };
 
-init();
+function createHTML() {
+
+}
+
+
