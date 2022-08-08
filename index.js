@@ -1,6 +1,12 @@
 const fs = require("fs");
 const generateHTML = require("./src/page-template");
 const inquirer = require("inquirer");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+var managerArray = [];
+var engineerArray = [];
+var internArray = [];
 
 const questionsManager = function () {
   inquirer
@@ -34,11 +40,13 @@ const questionsManager = function () {
       },
     ])
     .then((result) => {
+      const manager = new Manager(result.managerName, result.managerId, result.managerEmail, result.office);
+      managerArray.push(manager);
       if (result.managerRole === "Add an Intern") {
         questionsIntern();
       } else if (result.managerRole === "Add an Engineer") {
         questionsEngineer();
-      } else createHTML();
+      } else buildTemplate();
     });
 };
 
@@ -75,11 +83,13 @@ const questionsEngineer = function () {
       },
     ])
     .then((result) => {
+      const engineer = new Engineer(result.engineerName, result.engineerId, result.engineerEmail, result.github);
+      engineerArray.push(engineer);
       if (result.engineerRole === "Add an Intern") {
         questionsIntern();
       } else if (result.engineerRole === "Add an Engineer") {
         questionsEngineer();
-      } else createHTML();
+      } else buildTemplate();
     });
 };
 
@@ -116,14 +126,35 @@ const questionsIntern = function () {
       },
     ])
     .then((result) => {
+      const intern = new Intern(result.internName, result.internId, result.internEmail, result.school);
+      internArray.push(intern);
       if (result.internRole === "Add an Intern") {
         questionsIntern();
       } else if (result.internRole === "Add an Engineer") {
         questionsEngineer();
-      } else createHTML();
+      } else buildTemplate();
     });
 };
 
-function createHTML() {}
+function buildTemplate(fileName, data) {
+  console.log(managerArray);
+  console.log(internArray);
+  console.log(engineerArray);
+    // fs.writeFile(fileName, data, (err) => {
+    //     if(err) {
+    //         throw new Error("This is broken.");
+    //     }else {
+    //         console.log("Hey, it worked!");
+    //     }
+    // });
+};
+
+// function createHTML() {
+//     return inquirer.prompt(questionsManager).then((promptAnswers) => {
+//     var completedHTML = generateHTML(promptAnswers);
+//     buildTemplate("./dist/index.html", completedHTML);
+//     });
+// };
+// createHTML();
 
 questionsManager();
