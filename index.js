@@ -140,13 +140,14 @@ function buildTemplate(fileName, data) {
   console.log(managerArray);
   console.log(internArray);
   console.log(engineerArray);
-    // fs.writeFile(fileName, data, (err) => {
-    //     if(err) {
-    //         throw new Error("This is broken.");
-    //     }else {
-    //         console.log("Hey, it worked!");
-    //     }
-    // });
+  const template = generateHTML(managerArray, internArray, engineerArray)
+    fs.writeFile("./dist/index.html", template, (err) => {
+        if(err) {
+            throw new Error("This is broken.");
+        }else {
+            console.log("Hey, it worked!");
+        }
+    });
 };
 
 // function createHTML() {

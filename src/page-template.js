@@ -2,53 +2,58 @@
 
 //create a for going through all of the created arrays
 
-const generateManager = (managerArray) => {
-  if (!managerArray) {
-    return "";
-  }
+const Manager = require("../lib/Manager");
+const Engineer = require("../lib/Engineer");
+const Intern = require("../lib/Intern");
+
+const generateManager = (Manager) => {
+ 
   return `
         <div class="card">
         <div class="card-body">
-        <h1 class="card-title">${result.managerName}; Manager</h1>
-        <p> Employee ID: ${result.managerId}</p>
-        <p><a href="mailto:${result.managerEmail}> Email:${result.managerEmail}</a></p>
-        <p> Office Number: ${result.office}</p>
+        <h1 class="card-title">${Manager.name}; Manager</h1>
+        <p> Employee ID: ${Manager.id}</p>
+        <p><a href="mailto:${Manager.email}"> Email:${Manager.email}</a></p>
+        <p> Office Number: ${Manager.officeNumber}</p>
     `;
 };
 
 const generateEngineer = (engineerArray) => {
-    for(i=0; i<engineerArray.length; i++) {
-        if(!engineerArray) {
-            return "";
-        }
-        return `
+    
+    let cardsEngineer = '';
+
+    for(i=0; i < engineerArray.length; i++) {
+        cardsEngineer = cardsEngineer + `
         <div class="card">
         <div class="card-body">
-        <h1 class="card-title">${result.engineerName}; Engineer</h1>
-        <p> Employee ID: ${result.engineerId}</p>
-        <p><a href="mailto:${result.engineerEmail}> Email:${result.engineerEmail}</a></p>
-        <p><a href="github.com/${result.github}> Github: ${result.github}</a></p>
+        <h1 class="card-title">${result.engineerName[i]}; Engineer</h1>
+        <p> Employee ID: ${result.engineerId[i]}</p>
+        <p><a href="mailto:${result.engineerEmail[i]}"> Email:${result.engineerEmail[i]}</a></p>
+        <p><a href="github.com/${result.github[i]}> Github: ${result.github[i]}</a></p>
         `
     }
+    return cardsEngineer;
 };
 
 const generateIntern = (internArray) => {
-    for(i=0; i<internArray.length; i++) {
-        if(!internArray) {
-            return "";
-        }
-        return `
+
+    let cardsIntern = '';
+
+    for(i=0; i < internArray.length; i++) {
+        
+        cardsIntern = cardsIntern + `
         <div class="card">
         <div class="card-body">
         <h1 class="card-title">${result.internName}; Engineer</h1>
         <p> Employee ID: ${result.internId}</p>
-        <p><a href="mailto:${result.internEmail}> Email:${result.internEmail}</a></p>
+        <p><a href="mailto:${result.internEmail}"> Email:${result.internEmail}</a></p>
         <p> School: ${result.school}</p>
         `
     }
+    return cardsIntern;
 };
 
-module.exports = (templateData) => {
+module.exports = (managerArray, internArray, engineerArray) => {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -63,8 +68,10 @@ module.exports = (templateData) => {
       <link rel="stylesheet" href="style.css">
     </head>
     <body>
-     <div class="container">
-     ${generateManager}
+     <div class= "container">
+     ${generateManager(managerArray)}
+     ${generateEngineer(engineerArray)}
+     ${generateIntern(internArray)}
      </div>
     </body>
     </html>
