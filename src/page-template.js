@@ -1,12 +1,11 @@
 
 
 //create a for going through all of the created arrays
-
 const Manager = require("../lib/Manager");
 const Engineer = require("../lib/Engineer");
 const Intern = require("../lib/Intern");
 
-const generateManager = (Manager) => {
+const generateManager = (managerArray) => {
  
   return `
         <div class="card">
@@ -17,6 +16,7 @@ const generateManager = (Manager) => {
         <p> Office Number: ${Manager.officeNumber}</p>
     `;
 };
+console.log(managerArray.name);
 
 const generateEngineer = (engineerArray) => {
     
@@ -26,10 +26,10 @@ const generateEngineer = (engineerArray) => {
         cardsEngineer = cardsEngineer + `
         <div class="card">
         <div class="card-body">
-        <h1 class="card-title">${result.engineerName[i]}; Engineer</h1>
-        <p> Employee ID: ${result.engineerId[i]}</p>
-        <p><a href="mailto:${result.engineerEmail[i]}"> Email:${result.engineerEmail[i]}</a></p>
-        <p><a href="github.com/${result.github[i]}> Github: ${result.github[i]}</a></p>
+        <h1 class="card-title">${Engineer.name[i]}; Engineer</h1>
+        <p> Employee ID: ${Engineer.id[i]}</p>
+        <p><a href="mailto:${Engineer.email[i]}"> Email:${Engineer.email[i]}</a></p>
+        <p><a href="github.com/${Engineer.github[i]}> Github: ${Engineer.github[i]}</a></p>
         `
     }
     return cardsEngineer;
@@ -44,10 +44,10 @@ const generateIntern = (internArray) => {
         cardsIntern = cardsIntern + `
         <div class="card">
         <div class="card-body">
-        <h1 class="card-title">${result.internName}; Engineer</h1>
-        <p> Employee ID: ${result.internId}</p>
-        <p><a href="mailto:${result.internEmail}"> Email:${result.internEmail}</a></p>
-        <p> School: ${result.school}</p>
+        <h1 class="card-title">${Intern.name}; Engineer</h1>
+        <p> Employee ID: ${Intern.id}</p>
+        <p><a href="mailto:${Intern.email}"> Email:${Intern.email}</a></p>
+        <p> School: ${Intern.school}</p>
         `
     }
     return cardsIntern;
