@@ -1,12 +1,10 @@
-
-
 //create a for going through all of the created arrays
 const Manager = require("../lib/Manager");
 const Engineer = require("../lib/Engineer");
 const Intern = require("../lib/Intern");
 
-const generateManager = (managerArray) => {
- 
+const generateManager = (Manager) => {
+  console.log(Manager.name);
   return `
         <div class="card">
         <div class="card-body">
@@ -16,41 +14,41 @@ const generateManager = (managerArray) => {
         <p> Office Number: ${Manager.officeNumber}</p>
     `;
 };
-console.log(managerArray.name);
 
-const generateEngineer = (engineerArray) => {
-    
-    let cardsEngineer = '';
+const generateEngineer = (Engineer) => {
+  let cardsEngineer = "";
 
-    for(i=0; i < engineerArray.length; i++) {
-        cardsEngineer = cardsEngineer + `
+  for (i = 0; i < engineer.length; i++) {
+    cardsEngineer =
+      cardsEngineer +
+      `
         <div class="card">
         <div class="card-body">
         <h1 class="card-title">${Engineer.name[i]}; Engineer</h1>
         <p> Employee ID: ${Engineer.id[i]}</p>
         <p><a href="mailto:${Engineer.email[i]}"> Email:${Engineer.email[i]}</a></p>
         <p><a href="github.com/${Engineer.github[i]}> Github: ${Engineer.github[i]}</a></p>
-        `
-    }
-    return cardsEngineer;
+        `;
+  }
+  return cardsEngineer;
 };
 
-const generateIntern = (internArray) => {
+const generateIntern = (Intern) => {
+  let cardsIntern = "";
 
-    let cardsIntern = '';
-
-    for(i=0; i < internArray.length; i++) {
-        
-        cardsIntern = cardsIntern + `
+  for (i = 0; i < intern.length; i++) {
+    cardsIntern =
+      cardsIntern +
+      `
         <div class="card">
         <div class="card-body">
         <h1 class="card-title">${Intern.name}; Engineer</h1>
         <p> Employee ID: ${Intern.id}</p>
         <p><a href="mailto:${Intern.email}"> Email:${Intern.email}</a></p>
         <p> School: ${Intern.school}</p>
-        `
-    }
-    return cardsIntern;
+        `;
+  }
+  return cardsIntern;
 };
 
 module.exports = (managerArray, internArray, engineerArray) => {

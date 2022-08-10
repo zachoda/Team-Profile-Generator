@@ -4,9 +4,9 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-var managerArray = [];
-var engineerArray = [];
-var internArray = [];
+var managerArray;
+var engineerArray;
+var internArray;
 
 const questionsManager = function () {
   inquirer
@@ -41,7 +41,7 @@ const questionsManager = function () {
     ])
     .then((result) => {
       const manager = new Manager(result.managerName, result.managerId, result.managerEmail, result.office);
-      managerArray.push(manager);
+      managerArray = manager;
       if (result.managerRole === "Add an Intern") {
         questionsIntern();
       } else if (result.managerRole === "Add an Engineer") {
@@ -84,7 +84,7 @@ const questionsEngineer = function () {
     ])
     .then((result) => {
       const engineer = new Engineer(result.engineerName, result.engineerId, result.engineerEmail, result.github);
-      engineerArray.push(engineer);
+      engineerArray = engineer;
       if (result.engineerRole === "Add an Intern") {
         questionsIntern();
       } else if (result.engineerRole === "Add an Engineer") {
@@ -127,7 +127,7 @@ const questionsIntern = function () {
     ])
     .then((result) => {
       const intern = new Intern(result.internName, result.internId, result.internEmail, result.school);
-      internArray.push(intern);
+      internArray = intern;
       if (result.internRole === "Add an Intern") {
         questionsIntern();
       } else if (result.internRole === "Add an Engineer") {
