@@ -137,10 +137,7 @@ const questionsIntern = function () {
 };
 
 function buildTemplate(fileName, data) {
-  console.log(managerArray);
-  console.log(internArray);
-  console.log(engineerArray);
-  const template = generateHTML(managerArray, internArray, engineerArray)
+  const template = generateHTML(managerArray, engineerArray, internArray)
     fs.writeFile("./dist/index.html", template, (err) => {
         if(err) {
             throw new Error("This is broken.");
