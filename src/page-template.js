@@ -10,29 +10,43 @@ const generateManager = (Manager) => {
     `;
 };
 
-const generateEngineer = (Engineer) => {
-  return `
-        <div class="card">
-        <div class="card-body">
-        <h1 class="card-title">${Engineer.name}; Engineer</h1>
-        <p> Employee ID: ${Engineer.id}</p>
-        <p><a href="mailto:${Engineer.email}"> Email:${Engineer.email}</a></p>
-        <p><a href="github.com/${Engineer.github}"> Github: ${Engineer.github}</a></p>
-        `;
+const generateEngineer = (engineerArray) => {
+  let returnValue = '';
+  console.log(engineerArray);
+  engineerArray.forEach(engineer => {
+    returnValue = returnValue + `
+          <div class="card">
+          <div class="card-body">
+          <h1 class="card-title">${engineer.name}; Engineer</h1>
+          <p> Employee ID: ${engineer.id}</p>
+          <p><a href="mailto:${engineer.email}"> Email:${engineer.email}</a></p>
+          <p><a href="github.com/${engineer.github}"> Github: ${engineer.github}</a></p>
+          </div>
+          </div>
+          `;
+  });
+  return returnValue;
 };
 
-const generateIntern = (Intern) => {
-  return `
+const generateIntern = (internArray) => {
+  let returnValue = '';
+  internArray.forEach(intern => {
+    returnValue = returnValue +
+   `
         <div class="card">
         <div class="card-body">
-        <h1 class="card-title">${Intern.name}; Intern</h1>
-        <p> Employee ID: ${Intern.id}</p>
-        <p><a href="mailto:${Intern.email}"> Email:${Intern.email}</a></p>
-        <p> School: ${Intern.school}</p>
+        <h1 class="card-title">${intern.name}; Intern</h1>
+        <p> Employee ID: ${intern.id}</p>
+        <p><a href="mailto:${intern.email}"> Email:${intern.email}</a></p>
+        <p> School: ${intern.school}</p>
+        </div>
+        </div>
         `;
+      });
+      return returnValue;
 };
 
-module.exports = (managerArray, engineerArray, internArray) => {
+module.exports = (managerValue, engineerArray, internArray) => {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -48,11 +62,12 @@ module.exports = (managerArray, engineerArray, internArray) => {
     </head>
     <body>
      <div class= "container">
-     ${generateManager(managerArray)}
+     ${generateManager(managerValue)}
      ${generateEngineer(engineerArray)}
      ${generateIntern(internArray)}
      </div>
-    </body>
-    </html>
-    `;
-};
+     </body>
+     </html>
+     `;
+    };
+    

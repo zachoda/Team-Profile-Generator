@@ -4,9 +4,9 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-var managerArray;
-var engineerArray;
-var internArray;
+var managerValue;
+var engineerArray = [];
+var internArray = [];
 
 const questionsManager = function () {
   inquirer
@@ -41,7 +41,7 @@ const questionsManager = function () {
     ])
     .then((result) => {
       const manager = new Manager(result.managerName, result.managerId, result.managerEmail, result.office);
-      managerArray = manager;
+      managerValue = manager;
       if (result.managerRole === "Add an Intern") {
         questionsIntern();
       } else if (result.managerRole === "Add an Engineer") {
@@ -84,7 +84,7 @@ const questionsEngineer = function () {
     ])
     .then((result) => {
       const engineer = new Engineer(result.engineerName, result.engineerId, result.engineerEmail, result.github);
-      engineerArray = engineer;
+      engineerArray.push(engineer);
       if (result.engineerRole === "Add an Intern") {
         questionsIntern();
       } else if (result.engineerRole === "Add an Engineer") {
@@ -127,7 +127,7 @@ const questionsIntern = function () {
     ])
     .then((result) => {
       const intern = new Intern(result.internName, result.internId, result.internEmail, result.school);
-      internArray = intern;
+      internArray.push(intern);
       if (result.internRole === "Add an Intern") {
         questionsIntern();
       } else if (result.internRole === "Add an Engineer") {
@@ -137,7 +137,8 @@ const questionsIntern = function () {
 };
 
 function buildTemplate(fileName, data) {
-  const template = generateHTML(managerArray, engineerArray, internArray)
+  console.log(engineerArray);
+  const template = generateHTML(managerValue, engineerArray, internArray)
     fs.writeFile("./dist/index.html", template, (err) => {
         if(err) {
             throw new Error("This is broken.");
